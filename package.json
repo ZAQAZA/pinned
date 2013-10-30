@@ -4,8 +4,19 @@
   "description": "Notifications pinned on a map",
   "main": "app",
   "scripts": {
-      "start": "node app/server.js"
+    "start": "node lib/server.js"
   },
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/ZAQAZA/pinned.git"
+  }
   "author": "Ofri Dagan",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~3.4.4",
+    "connect-assets": "~3.0.0-alpha1",
+    "coffee-script": "~1.6.3",
+    "stylus": "~0.39.0",
+    "jade": "~0.35.0"
+  }
 }

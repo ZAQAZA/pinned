@@ -1,10 +1,16 @@
-sys = require "sys"
-my_http = require "http"
-server = my_http.createServer (request,response) ->
-  sys.puts "I got kicked"
-  response.writeHeader 200, {"Content-Type": "text/plain"}
-  response.write "Hello World"
-  response.end()
+express = require 'express'
+app = express()
+jade = require 'jade'
 
-server.listen 8080
-sys.puts "Server Running on 8080"
+app.use require('connect-assets')()
+
+app.get '/', (req, res) ->
+  html = jade.renderFile __dirname + '/views/index.jade',
+    pageTitle: 'Ofri Dagan'
+    youAreUsingJade: true
+  res.send html
+
+app.use express.static(__dirname + '/public')
+
+app.listen 8080
+console.log 'listening 8080 '
