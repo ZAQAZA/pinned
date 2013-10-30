@@ -1,0 +1,11 @@
+{
+  "name": "Pinned",
+  "version": "1.0.0",
+  "description": "Notifications pinned on a map",
+  "main": "app",
+  "scripts": {
+      "start": "node app/server.js"
+  },
+  "author": "Ofri Dagan",
+  "license": "BSD-2-Clause"
+}
