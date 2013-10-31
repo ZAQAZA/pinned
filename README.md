@@ -1,4 +1,4 @@
 pinned
 ======
 
-A notification system pinned on a map
+A notification system pinned in a map
