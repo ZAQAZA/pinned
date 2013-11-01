@@ -1,7 +1,14 @@
 define ['backbone'], (Backbone) ->
 
   Backbone.Model.extend
-    urlRoot: '/notifications'
     initialize: ->
+    urlRoot: '/notifications'
+
+    upvoteUrl: ->
+      @url() + '/upvote'
+
+    sync: (method, model, options) ->
+      options.url = @upvoteUrl() if options['upvote']
+      return Backbone.sync.call(model, method, model, options) 
 
 

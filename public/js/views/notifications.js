@@ -2,18 +2,19 @@
   define(['utils', 'backbone', 'handlebars', 'models/model', 'views/notification'], function(Utils, Backbone, Handlebars, Model, NotificationView) {
     return Backbone.View.extend({
       initialize: function() {
-        this.listenTo(Model.notifs, 'add', this.addOne);
-        this.listenTo(Model.notifs, 'reset', this.addAll);
-        this.listenTo(Model.notifs, 'all', this.updateStat);
+        this.model = Model.notifs.active;
+        this.listenTo(this.model, 'add', this.addOne);
+        this.listenTo(this.model, 'reset', this.addAll);
+        this.listenTo(this.model, 'all', this.updateStat);
         return this.render();
       },
       template: Handlebars.getTemplate('notifications'),
       render: function() {
-        this.$el.html(this.template());
-        return this;
+        return this.$el.html(this.template());
       },
       addAll: function() {
-        return alert('addAll');
+        this.render();
+        return this.model.each(this.addOne, this);
       },
       addOne: function(notification) {
         var v;

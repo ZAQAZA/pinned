@@ -1,5 +1,5 @@
 (function() {
-  define(['utils', 'backbone', 'handlebars', 'models/notification'], function(Utils, Backbone, Handlebars, Notification) {
+  define(['utils', 'underscore', 'backbone', 'handlebars', 'models/notification'], function(Utils, _, Backbone, Handlebars, Notification) {
     return Backbone.View.extend({
       tagName: 'li',
       defaults: {
@@ -20,9 +20,9 @@
         this.$el.html(this.template(this.model.toJSON()));
         return this;
       },
-      persistSave: function(attr) {
+      persistSave: function(attr, options) {
         var _this = this;
-        return Utils.persistent(function(opt) {
+        return Utils.persistent(options || {}, function(opt) {
           return _this.model.save(attr, opt);
         });
       },
@@ -35,12 +35,14 @@
         return event.preventDefault();
       },
       upvote: function(event) {
-        this.model.set('votes_up', this.model.get('votes_up') + 1);
+        this.persistSave({}, {
+          upvote: true
+        });
         return event.preventDefault();
       },
       clear: function(event) {
         var _this = this;
-        Utils.persistent(function(opt) {
+        Utils.persistent({}, function(opt) {
           return _this.model.destroy(opt);
         });
         return event.preventDefault();

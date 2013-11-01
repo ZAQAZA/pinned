@@ -1,4 +1,4 @@
-define ['jquery', 'handlebars'], ($, Handlebars) ->
+define ['jquery', 'underscore', 'handlebars'], ($, _, Handlebars) ->
 
   Handlebars.getTemplate = (name) ->
     if (!Handlebars.templates? || !Handlebars.templates[name]?)
@@ -21,11 +21,15 @@ define ['jquery', 'handlebars'], ($, Handlebars) ->
         o[@name] = @value || ''
     o
 
-  persistent = (f) ->
+  persistent = (options, f) ->
     retry = setInterval ->
-      f
-        success: -> clearInterval(retry)
+      suc = options.success
+      _.extend options,
+        success: ->
+          suc() if suc?
+          clearInterval(retry)
         error: -> console.log arguments
+      f options
     , 400
 
   {persistent}

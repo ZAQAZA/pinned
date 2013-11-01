@@ -1,4 +1,4 @@
-define ['utils', 'backbone', 'handlebars', 'models/notification'], (Utils, Backbone, Handlebars, Notification) ->
+define ['utils', 'underscore', 'backbone', 'handlebars', 'models/notification'], (Utils, _, Backbone, Handlebars, Notification) ->
 
   Backbone.View.extend
     tagName: 'li'
@@ -22,8 +22,8 @@ define ['utils', 'backbone', 'handlebars', 'models/notification'], (Utils, Backb
       @$el.html @template(@model.toJSON())
       @
 
-    persistSave: (attr) ->
-      Utils.persistent (opt) =>
+    persistSave: (attr, options) ->
+      Utils.persistent options || {}, (opt) =>
         @model.save(attr, opt)
 
     toggle: (event) ->
@@ -35,11 +35,10 @@ define ['utils', 'backbone', 'handlebars', 'models/notification'], (Utils, Backb
       event.preventDefault()
 
     upvote: (event) ->
-      @model.set('votes_up', @model.get('votes_up') + 1)
-      #@persistSave { votes_up: @model.get('votes_up') + 1 }
+      @persistSave {}, {upvote: true}
       event.preventDefault()
 
     clear: (event) ->
-      Utils.persistent (opt) =>
+      Utils.persistent {}, (opt) =>
         @model.destroy(opt)
       event.preventDefault()

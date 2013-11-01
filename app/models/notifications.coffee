@@ -1,6 +1,13 @@
 define ['backbone', 'models/notification'], (Backbone, Notification) ->
 
-  Backbone.Collection.extend
+  Notifications = Backbone.Collection.extend
     model: Notification
     url: '/notifications'
-    parse: (response) -> response
+
+    initialize: (models) ->
+      @active = new Backbone.Collection(models)
+      @on "reset", @reFilter
+
+    reFilter: ->
+      @active.reset(@where {is_active: true})
+

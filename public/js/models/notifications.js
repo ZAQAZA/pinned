@@ -1,10 +1,17 @@
 (function() {
   define(['backbone', 'models/notification'], function(Backbone, Notification) {
-    return Backbone.Collection.extend({
+    var Notifications;
+    return Notifications = Backbone.Collection.extend({
       model: Notification,
       url: '/notifications',
-      parse: function(response) {
-        return response;
+      initialize: function(models) {
+        this.active = new Backbone.Collection(models);
+        return this.on("reset", this.reFilter);
+      },
+      reFilter: function() {
+        return this.active.reset(this.where({
+          is_active: true
+        }));
       }
     });
   });

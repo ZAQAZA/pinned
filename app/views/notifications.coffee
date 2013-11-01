@@ -2,9 +2,11 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/notification']
 
   Backbone.View.extend
     initialize: ->
-      @listenTo(Model.notifs, 'add', @addOne)
-      @listenTo(Model.notifs, 'reset', @addAll)
-      @listenTo(Model.notifs, 'all', @updateStat)
+      @model = Model.notifs.active
+
+      @listenTo(@model, 'add', @addOne)
+      @listenTo(@model, 'reset', @addAll)
+      @listenTo(@model, 'all', @updateStat)
 
       @render()
 
@@ -12,10 +14,10 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/notification']
 
     render: ->
       @$el.html @template()
-      @
 
     addAll: ->
-      alert 'addAll'
+      @render()
+      @model.each @addOne, @
 
     addOne: (notification) ->
       v = new NotificationView {model: notification}

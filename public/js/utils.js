@@ -1,5 +1,5 @@
 (function() {
-  define(['jquery', 'handlebars'], function($, Handlebars) {
+  define(['jquery', 'underscore', 'handlebars'], function($, _, Handlebars) {
     var persistent;
     Handlebars.getTemplate = function(name) {
       if ((Handlebars.templates == null) || (Handlebars.templates[name] == null)) {
@@ -30,17 +30,23 @@
       });
       return o;
     };
-    persistent = function(f) {
+    persistent = function(options, f) {
       var retry;
       return retry = setInterval(function() {
-        return f({
+        var suc;
+        suc = options.success;
+        _.extend(options, {
           success: function() {
+            if (suc != null) {
+              suc();
+            }
             return clearInterval(retry);
           },
           error: function() {
             return console.log(arguments);
           }
         });
+        return f(options);
       }, 400);
     };
     return {
