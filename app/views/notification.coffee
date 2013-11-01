@@ -3,9 +3,6 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/notification'],
   Backbone.View.extend
     tagName: 'li'
 
-    defaults:
-      'visible': false
-
     events:
       "click .title": "toggle"
       "click input[name='commit']": "submit"
@@ -14,7 +11,6 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/notification'],
 
     initialize: ->
       @listenTo(@model, 'change', @render)
-      @listenTo(@model, 'destroy', @remove)
 
     template: Handlebars.getTemplate('notification')
 

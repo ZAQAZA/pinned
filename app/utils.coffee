@@ -22,14 +22,16 @@ define ['jquery', 'underscore', 'handlebars'], ($, _, Handlebars) ->
     o
 
   persistent = (options, f) ->
-    retry = setInterval ->
-      suc = options.success
+    delayed = (task) ->
+      setTimeout task, 400
+
+    task = ->
       _.extend options,
-        success: ->
-          suc() if suc?
-          clearInterval(retry)
-        error: -> console.log arguments
+        error: ->
+          console.log arguments
+          delayed task
       f options
-    , 400
+
+    delayed task
 
   {persistent}

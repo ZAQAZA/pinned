@@ -9,6 +9,6 @@ define ['backbone'], (Backbone) ->
 
     sync: (method, model, options) ->
       options.url = @upvoteUrl() if options['upvote']
-      return Backbone.sync.call(model, method, model, options) 
+      Backbone.sync.call(model, method, model, options) 
 
 

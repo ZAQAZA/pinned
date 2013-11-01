@@ -2,9 +2,6 @@
   define(['utils', 'underscore', 'backbone', 'handlebars', 'models/notification'], function(Utils, _, Backbone, Handlebars, Notification) {
     return Backbone.View.extend({
       tagName: 'li',
-      defaults: {
-        'visible': false
-      },
       events: {
         "click .title": "toggle",
         "click input[name='commit']": "submit",
@@ -12,8 +9,7 @@
         "click input[name='delete']": "clear"
       },
       initialize: function() {
-        this.listenTo(this.model, 'change', this.render);
-        return this.listenTo(this.model, 'destroy', this.remove);
+        return this.listenTo(this.model, 'change', this.render);
       },
       template: Handlebars.getTemplate('notification'),
       render: function() {

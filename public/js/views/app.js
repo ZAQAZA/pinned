@@ -3,7 +3,8 @@
     return Backbone.View.extend({
       initialize: function() {
         this.update();
-        return this.render();
+        this.render();
+        return this.live();
       },
       update: function() {
         return Utils.persistent({}, function(opt) {
@@ -18,6 +19,23 @@
         return new NotificationsView({
           el: this.$('#notifications')
         });
+      },
+      live: function() {
+        return setInterval(function() {
+          var since;
+          since = Model.notifs.youngest();
+          return Model.updates.fetch({
+            data: {
+              since: since
+            },
+            success: function() {
+              return Model.notifs.set(Model.updates.models, {
+                remove: false,
+                merge: true
+              });
+            }
+          });
+        }, 2000);
       }
     });
   });

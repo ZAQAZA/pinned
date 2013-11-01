@@ -31,23 +31,20 @@
       return o;
     };
     persistent = function(options, f) {
-      var retry;
-      return retry = setInterval(function() {
-        var suc;
-        suc = options.success;
+      var delayed, task;
+      delayed = function(task) {
+        return setTimeout(task, 400);
+      };
+      task = function() {
         _.extend(options, {
-          success: function() {
-            if (suc != null) {
-              suc();
-            }
-            return clearInterval(retry);
-          },
           error: function() {
-            return console.log(arguments);
+            console.log(arguments);
+            return delayed(task);
           }
         });
         return f(options);
-      }, 400);
+      };
+      return delayed(task);
     };
     return {
       persistent: persistent

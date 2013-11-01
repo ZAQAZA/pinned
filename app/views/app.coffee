@@ -4,6 +4,7 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'views/
     initialize: ->
       @update()
       @render()
+      @live()
 
     update: ->
       Utils.persistent {}, (opt) ->
@@ -14,4 +15,13 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'views/
     render: ->
       @$el.html @template()
       new NotificationsView { el: @$('#notifications') }
+
+    live: ->
+      setInterval ->
+        since = Model.notifs.youngest()
+        Model.updates.fetch
+          data: {since}
+          success: ->
+            Model.notifs.set Model.updates.models, {remove: false, merge: true}
+      , 2000
 

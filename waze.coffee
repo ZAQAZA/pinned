@@ -9,6 +9,13 @@ module.exports = (app) ->
     url = 'notifications.json'
     request(wazify url).pipe res
 
+  app.get '/notifications/updates', (req, res) ->
+    url = 'notifications/updates.json'
+    r = request.get
+      url: wazify url
+      qs: req.query
+    r.pipe res
+
   app.post '/notifications', (req, res) ->
     url = 'notifications.json'
     r = request.post
