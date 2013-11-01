@@ -10,4 +10,13 @@ define ['jquery', 'handlebars'], ($, Handlebars) ->
         async : false
     Handlebars.templates[name]
 
-  Handlebars
+  $.fn.serializeObject = ->
+    o = {}
+    a = @serializeArray()
+    $.each a, ->
+      if o[@name]?
+        o[@name] = [o[@name]] unless o[@name].push
+        o[@name].push(@value || '')
+      else
+        o[@name] = @value || ''
+    o

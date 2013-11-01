@@ -1,7 +1,7 @@
 (function() {
-  define(['jquery', 'underscore', 'bars', 'views/layout'], function($, _, Handlebars, Layout) {
+  define(['jquery', 'underscore', 'bars', 'views/app', 'models/notifications'], function($, _, Handlebars, AppView, Notifs) {
     return function() {
-      return new Layout({
+      return new AppView({
         el: $("body")
       });
     };

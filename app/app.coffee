@@ -1,4 +1,4 @@
-define ['jquery', 'underscore', 'bars', 'views/layout'], ($, _, Handlebars, Layout) ->
+define ['jquery', 'underscore', 'bars', 'views/app', 'models/notifications'], ($, _, Handlebars, AppView, Notifs) ->
 
   ->
-    new Layout { el: $("body") }
+    new AppView { el: $("body") }

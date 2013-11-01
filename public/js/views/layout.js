@@ -1,12 +1,12 @@
 (function() {
-  define(['backbone', 'bars', 'models/notification'], function(Backbone, Handlebars, Noti) {
-    new Noti();
+  define(['backbone', 'bars'], function(Backbone, Handlebars) {
     return Backbone.View.extend({
       initialize: function() {
         return this.render();
       },
+      template: Handlebars.getTemplate('layout'),
       render: function() {
-        return this.$el.html(Handlebars.getTemplate('layout')());
+        return this.$el.html(this.template());
       }
     });
   });
