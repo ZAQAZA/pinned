@@ -1,10 +1,11 @@
-define ['backbone', 'bars', 'models/notification'], (Backbone, Handlebars, Notification) ->
+define ['utils', 'backbone', 'handlebars', 'models/notification'], (Utils, Backbone, Handlebars, Notification) ->
 
   Backbone.View.extend
     tagName: 'li'
 
     events:
       "click .title": "toggle"
+      "click :submit": "submit"
 
     initialize: ->
       @render()
@@ -17,4 +18,10 @@ define ['backbone', 'bars', 'models/notification'], (Backbone, Handlebars, Notif
 
     toggle: (event) ->
       @$('form').toggle()
+      event.preventDefault()
+
+    submit: (event) ->
+      attr = @$('form').serializeObject()
+      Utils.persistent (opt) =>
+        @model.save(attr, opt)
       event.preventDefault()

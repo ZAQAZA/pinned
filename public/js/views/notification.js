@@ -1,9 +1,10 @@
 (function() {
-  define(['backbone', 'bars', 'models/notification'], function(Backbone, Handlebars, Notification) {
+  define(['utils', 'backbone', 'handlebars', 'models/notification'], function(Utils, Backbone, Handlebars, Notification) {
     return Backbone.View.extend({
       tagName: 'li',
       events: {
-        "click .title": "toggle"
+        "click .title": "toggle",
+        "click :submit": "submit"
       },
       initialize: function() {
         return this.render();
@@ -15,6 +16,15 @@
       },
       toggle: function(event) {
         this.$('form').toggle();
+        return event.preventDefault();
+      },
+      submit: function(event) {
+        var attr,
+          _this = this;
+        attr = this.$('form').serializeObject();
+        Utils.persistent(function(opt) {
+          return _this.model.save(attr, opt);
+        });
         return event.preventDefault();
       }
     });

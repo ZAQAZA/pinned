@@ -1,4 +1,4 @@
-define ['backbone', 'bars', 'models/model', 'views/notifications'], (Backbone, Handlebars, Model, NotificationsView) ->
+define ['utils', 'backbone', 'handlebars', 'models/model', 'views/notifications'], (Utils, Backbone, Handlebars, Model, NotificationsView) ->
 
   Backbone.View.extend
     initialize: ->
@@ -6,8 +6,8 @@ define ['backbone', 'bars', 'models/model', 'views/notifications'], (Backbone, H
       @render()
 
     update: ->
-      Model.notifs.fetch
-        error: => setTimeout @update, 1000
+      Utils.persistent (opt) ->
+        Model.notifs.fetch(opt)
 
     template: Handlebars.getTemplate 'layout'
 

@@ -1,22 +1,18 @@
 <a class="title" href="#">{{title}}</a>
-<form class="notification-form" accept-charset="UTF-8" action="/notifications" method="post">
-  <div class="field">
-    <label for="notification_title">Title</label><br />
-    <input id="notification_title" name="notification[title]" size="30" type="text" value="{{title}}" />
-  </div>
-  <div class="field">
-    <label for="notification_description">Description</label><br />
-    <textarea cols="40" id="notification_description" name="notification[description]" rows="20" >{{description}}</textarea>
-  </div>
-  <div class="field">
-    <label for="notification_lon">Lon</label><br />
-    <input id="notification_lon" name="notification[lon]" size="30" type="text" value="{{lon}}" />
-  </div>
-  <div class="field">
-    <label for="notification_lat">Lat</label><br />
-    <input id="notification_lat" name="notification[lat]" size="30" type="text" value="{{lat}}" />
-  </div>
-  <div class="actions">
-    <input name="commit" type="submit" value="Apply" />
-  </div>
+
+<form class="notification-form">
+
+  <label for="title">Title</label>
+  <input id="title" name="title" size="20" type="text" value="{{title}}" />
+
+  <label for="lon">Lon</label>
+  <input id="lon" name="lon" size="20" type="text" value="{{lon}}" />
+
+  <label for="lat">Lat</label>
+  <input id="lat" name="lat" size="20" type="text" value="{{lat}}" />
+
+  <label for="description">Description</label>
+  <textarea cols="20" id="description" name="description" rows="2" >{{description}}</textarea>
+
+  <input name="commit" type="submit" value="Apply" />
 </form>

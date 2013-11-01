@@ -20,3 +20,10 @@ define ['jquery', 'handlebars'], ($, Handlebars) ->
       else
         o[@name] = @value || ''
     o
+
+  persistent = (f) ->
+    retry = setInterval ->
+      f { success: -> clearInterval(retry) }
+    , 400
+
+  {persistent}

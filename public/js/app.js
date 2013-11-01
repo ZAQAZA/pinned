@@ -1,5 +1,5 @@
 (function() {
-  define(['jquery', 'underscore', 'bars', 'views/app', 'models/notifications'], function($, _, Handlebars, AppView, Notifs) {
+  define(['jquery', 'views/app', 'utils'], function($, AppView) {
     return function() {
       return new AppView({
         el: $("body")

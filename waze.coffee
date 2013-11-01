@@ -17,7 +17,7 @@ module.exports = (app) ->
     r.pipe res
 
   app.put '/notifications/:id', (req, res) ->
-    url = 'notifications/' + req.query.id + '.json'
+    url = 'notifications/' + req.params.id + '.json'
     r = request.put
       url: wazify url
       json: req.body

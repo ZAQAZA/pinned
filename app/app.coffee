@@ -1,4 +1,4 @@
-define ['jquery', 'underscore', 'bars', 'views/app', 'models/notifications'], ($, _, Handlebars, AppView, Notifs) ->
+define ['jquery', 'views/app', 'utils'], ($, AppView) ->
 
   ->
     new AppView { el: $("body") }

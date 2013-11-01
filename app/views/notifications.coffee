@@ -1,4 +1,4 @@
-define ['backbone', 'bars', 'models/model', 'views/notification'], (Backbone, Handlebars, Model, NotificationView) ->
+define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbone, Handlebars, Model, NotificationView) ->
 
   Backbone.View.extend
     initialize: ->
