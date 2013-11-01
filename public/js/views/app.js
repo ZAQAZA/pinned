@@ -1,5 +1,5 @@
 (function() {
-  define(['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'views/notifications'], function(Utils, _, Backbone, Handlebars, Model, NotificationsView) {
+  define(['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/notifications'], function(Utils, Backbone, Handlebars, Model, MapView, NotificationsView) {
     return Backbone.View.extend({
       initialize: function() {
         this.render();
@@ -16,8 +16,11 @@
       template: Handlebars.getTemplate('layout'),
       render: function() {
         this.$el.html(this.template());
-        return new NotificationsView({
+        new NotificationsView({
           el: this.$('#notifications')
+        });
+        return new MapView({
+          el: this.$('#map')
         });
       },
       live: function() {

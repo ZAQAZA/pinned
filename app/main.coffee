@@ -6,6 +6,7 @@ requirejs.config
       underscore: 'vendor/underscore'
       backbone: 'vendor/backbone'
       handlebars: 'vendor/handlebars'
+      leaflet: 'vendor/leaflet'
 #      templates: 'views/templates'
 
 

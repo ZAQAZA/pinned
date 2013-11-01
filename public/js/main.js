@@ -5,7 +5,8 @@
       jquery: 'vendor/jquery',
       underscore: 'vendor/underscore',
       backbone: 'vendor/backbone',
-      handlebars: 'vendor/handlebars'
+      handlebars: 'vendor/handlebars',
+      leaflet: 'vendor/leaflet'
     },
     shim: {
       underscore: {

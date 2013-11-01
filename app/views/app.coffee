@@ -1,4 +1,4 @@
-define ['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'views/notifications'], (Utils, _, Backbone, Handlebars, Model, NotificationsView) ->
+define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/notifications'], (Utils, Backbone, Handlebars, Model, MapView, NotificationsView) ->
 
   Backbone.View.extend
     initialize: ->
@@ -14,6 +14,7 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'views/
     render: ->
       @$el.html @template()
       new NotificationsView { el: @$('#notifications') }
+      new MapView { el: @$('#map') }
 
     live: ->
       delayed = (task) ->

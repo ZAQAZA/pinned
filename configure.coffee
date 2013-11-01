@@ -11,6 +11,7 @@ module.exports = (app) ->
     dest: __dirname + '/public/css'
 
   app.use '/js/vendor', express.static(__dirname + '/vendor/js')
+  app.use '/css/vendor', express.static(__dirname + '/vendor/css')
   app.use '/templates', express.static(__dirname + '/templates')
   app.use express.static(__dirname + '/public')
 
