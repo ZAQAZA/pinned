@@ -36,6 +36,9 @@
         return f({
           success: function() {
             return clearInterval(retry);
+          },
+          error: function() {
+            return console.log(arguments);
           }
         });
       }, 400);

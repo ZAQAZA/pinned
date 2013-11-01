@@ -23,7 +23,9 @@ define ['jquery', 'handlebars'], ($, Handlebars) ->
 
   persistent = (f) ->
     retry = setInterval ->
-      f { success: -> clearInterval(retry) }
+      f
+        success: -> clearInterval(retry)
+        error: -> console.log arguments
     , 400
 
   {persistent}

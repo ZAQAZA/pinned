@@ -1,18 +1,36 @@
 <a class="title" href="#">{{title}}</a>
-
+{{#if visible}}
 <form class="notification-form">
 
-  <label for="title">Title</label>
-  <input id="title" name="title" size="20" type="text" value="{{title}}" />
+  <div class="lonlat">
+    <span>
+      <span class="label">Longitude</span>
+      <span class="value">{{lon}}</span>
+    </span>
+    <span>
+      <span class="label">Latitude</span>
+      <span class="value">{{lat}}</span>
+    </span>
+  </div>
 
-  <label for="lon">Lon</label>
-  <input id="lon" name="lon" size="20" type="text" value="{{lon}}" />
 
-  <label for="lat">Lat</label>
-  <input id="lat" name="lat" size="20" type="text" value="{{lat}}" />
+  <div class="details">
+    <span>
+      <label for="title">Title</label>
+      <input id="title" name="title" size="20" type="text" value="{{title}}" />
+    </span>
+    <span>
+      <label for="description">Description</label>
+      <input id="description" name="description" size="20" type="text" value="{{description}}" />
+    </span>
+  </div>
 
-  <label for="description">Description</label>
-  <textarea cols="20" id="description" name="description" rows="2" >{{description}}</textarea>
+  <div class="actions">
+    <span><input name="commit" type="submit" value="Apply" /></span>
+    <span class="votes">{{votes_up}}</span>
+    <span><input name="upvote" type="submit" value="Up" /></span>
+    <span><input name="delete" type="submit" value="Delete" /></span>
+  </div>
 
-  <input name="commit" type="submit" value="Apply" />
 </form>
+{{/if}}

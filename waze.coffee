@@ -24,9 +24,9 @@ module.exports = (app) ->
     r.pipe res
 
   app.delete '/notifications/:id', (req, res) ->
-    url = 'notifications/' + req.query.id + '.json'
+    url = 'notifications/' + req.params.id + '.json'
     request.del(wazify url).pipe res
 
   app.put '/notifications/:id/upvote', (req, res) ->
-    url = 'notifications/' + req.query.id + '/upvote.json'
+    url = 'notifications/' + req.params.id + '/upvote.json'
     request.put(wazify url).pipe res
