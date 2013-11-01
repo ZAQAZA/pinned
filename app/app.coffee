@@ -1,15 +1,4 @@
-define ['jquery', 'underscore', 'handlebars'], ->
-  Handlebars.getTemplate = (name) ->
-    if (!Handlebars.templates? || !Handlebars.templates[name]?)
-      $.ajax
-        url: 'templates/' + name + '.handlebars'
-        success: (data) ->
-          Handlebars.templates = Handlebars.templates || {}
-          Handlebars.templates[name] = Handlebars.compile(data)
-        async : false
-    Handlebars.templates[name]
+define ['jquery', 'underscore', 'bars', 'views/layout'], ($, _, Handlebars, Layout) ->
 
   ->
-    $ ->
-      $('h1').html 'I am jquery!'
-      $('#container').html Handlebars.getTemplate('notification')({name: 'Ofri Dagan'})
+    new Layout { el: $("body") }
