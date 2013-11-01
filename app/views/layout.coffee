@@ -1,4 +1,6 @@
-define ['backbone', 'bars'], (Backbone, Handlebars) ->
+define ['backbone', 'bars', 'models/notification'], (Backbone, Handlebars, Noti) ->
+
+  new Noti()
 
   Backbone.View.extend
     initialize: ->

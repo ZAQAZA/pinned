@@ -1,5 +1,6 @@
 (function() {
-  define(['backbone', 'bars'], function(Backbone, Handlebars) {
+  define(['backbone', 'bars', 'models/notification'], function(Backbone, Handlebars, Noti) {
+    new Noti();
     return Backbone.View.extend({
       initialize: function() {
         return this.render();
