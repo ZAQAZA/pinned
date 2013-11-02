@@ -7,7 +7,6 @@ define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbo
       @listenTo(@model, 'add', @addOne)
       @listenTo(@model, 'remove', @addAll)
       @listenTo(@model, 'reset', @addAll)
-      @listenTo(@model, 'all', @updateStat)
 
       @render()
 
@@ -23,6 +22,3 @@ define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbo
     addOne: (notification) ->
       v = new NotificationView {model: notification}
       @$('#notifications-list').append v.render().el
-
-    updateStat: ->
-
