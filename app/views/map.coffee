@@ -1,17 +1,16 @@
-define ['backbone', 'leaflet', 'models/model', 'views/pin'], (Backbone, L, Model, PinView) ->
+define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification'], (Backbone, L, Model, PinView, Notification) ->
 
   Backbone.View.extend
     initialize: ->
       @model = Model.notifs.active
+      @render()
 
       @listenTo(@model, 'add', @addOne)
       @listenTo(@model, 'reset', @addAll)
-      @listenTo(@model, 'all', @updateStat)
-
-      @render()
+      @map.on('click', @newPin)
 
     render: ->
-      @map = L.map('map').setView([11, 22], 4);
+      @map = L.map('map').setView([11, 22], 4)
       mapquestUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png'
       subDomains = ['otile1','otile2','otile3','otile4']
       L.tileLayer mapquestUrl,
@@ -20,7 +19,6 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin'], (Backbone, L, Model
       .addTo(@map)
 
     addAll: ->
-      alert 'all'
       @render()
       @model.each @addOne, @
 
@@ -32,3 +30,13 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin'], (Backbone, L, Model
         map: @map
       .render()
       @map.setView(c,z)
+
+    newPin: (event) =>
+      model = new Notification
+        lon: event.latlng.lng
+        lat: event.latlng.lat
+        new: true
+      new PinView
+        model: model
+        map: event.target
+      .render()

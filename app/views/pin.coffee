@@ -11,10 +11,11 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
       @pin()
       @listenTo(@model, 'change', @refresh)
 
-    template: Handlebars.getTemplate('pin')
+    template: ->
+      if @model.get('new') then Handlebars.getTemplate('pin_new') else Handlebars.getTemplate('pin')
 
     render: ->
-      @$el.html @template(@model.toJSON())
+      @$el.html @template()(@model.toJSON())
       @refresh()
 
     pin: ->
