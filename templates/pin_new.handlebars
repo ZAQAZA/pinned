@@ -1,11 +1,23 @@
-<div class="pin-title">New Notification</div>
-<div class="lonlat">
-  <span>
-    <span class="label">Lon</span>
-    <span class="value">{{lon}}</span>
-  </span>
-  <span>
-    <span class="label">Lat</span>
-    <span class="value">{{lat}}</span>
-  </span>
+<div class="pin-title">
+  <span>New Notification - </span><span class="lonlat">{{niceLonLat lon lat}}</span>
 </div>
+
+<form class="notification-form">
+
+  <div class="details">
+    <span>
+      <span class="label">Title</span>
+      <input id="title" name="title" size="15" type="text" value="{{title}}" />
+    </span>
+    <br>
+    <span>
+      <span class="label">Description</span>
+      <input id="description" name="description" size="15" type="text" value="{{description}}" />
+    </span>
+  </div>
+
+  <div class="actions">
+    <span><input name="commit" type="submit" value="Apply" /></span>
+  </div>
+
+</form>

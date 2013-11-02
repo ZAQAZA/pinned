@@ -16,3 +16,6 @@ module.exports = (app) ->
   app.use express.static(__dirname + '/public')
 
   app.use express.bodyParser()
+
+  process.on 'uncaughtException', (err) ->
+    console.log err

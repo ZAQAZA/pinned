@@ -9,7 +9,8 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
     initialize: (options) ->
       @map = options.map
       @pin()
-      @listenTo(@model, 'change', @refresh)
+      @listenTo @model, 'change', @refresh
+      that = @
 
     template: ->
       if @model.get('new') then Handlebars.getTemplate('pin_new') else Handlebars.getTemplate('pin')
@@ -17,11 +18,12 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
     render: ->
       @$el.html @template()(@model.toJSON())
       @refresh()
+      @
 
     pin: ->
       @popup = L.popup()
       @marker = L.marker(@model.latlon()).addTo(@map)
-      @marker.bindPopup(@popup)
+      @marker.bindPopup(@popup).openPopup()
 
     refresh: ->
       @popup.setContent(@el)
@@ -33,3 +35,9 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
     submit: (event) ->
       @persistSave @$('form').serializeObject()
       event.preventDefault()
+
+    destroyIfNew: ->
+      return unless @model.get('new')
+      @map.removeLayer @marker
+      @remove()
+

@@ -32,11 +32,12 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
       @map.setView(c,z)
 
     newPin: (event) =>
+      @newPin.destroyIfNew() if @newPin?
       model = new Notification
         lon: event.latlng.lng
         lat: event.latlng.lat
         new: true
-      new PinView
+      @newPin = new PinView
         model: model
         map: event.target
       .render()

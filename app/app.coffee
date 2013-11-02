@@ -1,4 +1,4 @@
-define ['jquery', 'views/app', 'utils'], ($, AppView) ->
+define ['jquery', 'helpers', 'views/app', 'utils'], ($, H, AppView) ->
 
   ->
     $ ->
