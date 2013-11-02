@@ -1,10 +1,11 @@
-define ['utils', 'backbone', 'handlebars', 'models/model', 'views/notification'], (Utils, Backbone, Handlebars, Model, NotificationView) ->
+define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbone, Handlebars, Model, NotificationView) ->
 
   Backbone.View.extend
     initialize: ->
       @model = Model.notifs.active
 
       @listenTo(@model, 'add', @addOne)
+      @listenTo(@model, 'remove', @addAll)
       @listenTo(@model, 'reset', @addAll)
       @listenTo(@model, 'all', @updateStat)
 

@@ -1,4 +1,4 @@
-define ['utils', 'underscore', 'backbone', 'handlebars', 'models/notification'], (Utils, _, Backbone, Handlebars, Notification) ->
+define ['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'models/notification'], (Utils, _, Backbone, Handlebars, Model, Notification) ->
 
   Backbone.View.extend
     tagName: 'li'
@@ -35,6 +35,6 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/notification'],
       event.preventDefault()
 
     clear: (event) ->
-      Utils.persistent {}, (opt) =>
+      Utils.persistent {success: -> Model.notifs.add @model}, (opt) =>
         @model.destroy(opt)
       event.preventDefault()

@@ -1,15 +1,20 @@
 define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notification) ->
 
-  Notifications = Backbone.Collection.extend
+  Backbone.Collection.extend
     model: Notification
     url: '/notifications'
 
     initialize: (models) ->
       @active = new Backbone.Collection(models)
-      @on "reset add", @reFilter
+      @on "remove", @removing
+      @on "add", @reFilter
+      @on "reset", @reFilter
 
     reFilter: ->
       @active.set(@where({is_active: true}), {merge: true})
+
+    removing: (model) ->
+      @active.remove model
 
     youngest: ->
       young = @max (model) ->

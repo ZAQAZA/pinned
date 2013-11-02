@@ -1,4 +1,4 @@
-define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handlebars, L) ->
+define ['utils', 'underscore', 'backbone', 'handlebars', 'leaflet', 'models/model'], (Utils, _, Backbone, Handlebars, L, Model) ->
 
   Backbone.View.extend
     className: 'pin'
@@ -9,7 +9,7 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
     initialize: (options) ->
       @map = options.map
       @pin()
-      @listenTo @model, 'change', @refresh
+      @listenTo @model, 'change', @render
       that = @
 
     template: ->
@@ -17,7 +17,7 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
 
     render: ->
       @$el.html @template()(@model.toJSON())
-      @refresh()
+      @popup.setContent(@el)
       @
 
     pin: ->
@@ -25,15 +25,13 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
       @marker = L.marker(@model.latlon()).addTo(@map)
       @marker.bindPopup(@popup).openPopup()
 
-    refresh: ->
-      @popup.setContent(@el)
-
     persistSave: (attr, options) ->
       Utils.persistent options || {}, (opt) =>
         @model.save(attr, opt)
 
     submit: (event) ->
-      @persistSave @$('form').serializeObject()
+      @persistSave _.extend(@$('form').serializeObject(), {new: false}),
+        success: => Model.notifs.add @model
       event.preventDefault()
 
     destroyIfNew: ->
