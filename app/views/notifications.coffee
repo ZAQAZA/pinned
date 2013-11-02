@@ -5,8 +5,7 @@ define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbo
       @model = Model.notifs.active
 
       @listenTo(@model, 'add', @addOne)
-      @listenTo(@model, 'remove', @addAll)
-      @listenTo(@model, 'reset', @addAll)
+      @listenTo(@model, 'remove reset', @addAll)
       @listenTo(@model, 'all', @updateStat)
 
       @render()

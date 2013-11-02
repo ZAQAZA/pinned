@@ -7,8 +7,7 @@ define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notifica
     initialize: (models) ->
       @active = new Backbone.Collection(models)
       @on "remove", @removing
-      @on "add", @reFilter
-      @on "reset", @reFilter
+      @on "add change reset", @reFilter
 
     reFilter: ->
       @active.set(@where({is_active: true}), {merge: true})

@@ -35,6 +35,10 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'models
       event.preventDefault()
 
     clear: (event) ->
-      Utils.persistent {success: -> Model.notifs.add @model}, (opt) =>
+      Utils.persistent
+        success: =>
+          Model.notifs.remove @model
+          @remove()
+      , (opt) =>
         @model.destroy(opt)
       event.preventDefault()

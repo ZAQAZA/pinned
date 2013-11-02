@@ -5,9 +5,9 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
       @model = Model.notifs.active
       @render()
 
-      @listenTo(@model, 'add', @addOne)
-      @listenTo(@model, 'reset', @addAll)
-      @map.on('click', @newPin)
+      @listenTo @model, 'add', @addOne
+      @listenTo @model, 'reset', @addAll
+      @map.on 'click', @newPin, @
 
     render: ->
       @map = L.map('map').setView([11, 22], 4)
@@ -22,22 +22,29 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
       @render()
       @model.each @addOne, @
 
+    createPinView: (options) ->
+      closeNew = =>
+        @newPinView.destroyIfNew() if @newPinView?
+      pin = new PinView(options)
+      pin.marker.on 'click', closeNew, @
+      pin
+
     addOne: (notification) ->
       c = @map.getCenter()
       z = @map.getZoom()
-      new PinView
+      @createPinView
         model: notification
         map: @map
       .render()
       @map.setView(c,z)
 
-    newPin: (event) =>
-      @newPin.destroyIfNew() if @newPin?
+    newPin: (event) ->
+      @newPinView.destroyIfNew() if @newPinView?
       model = new Notification
         lon: event.latlng.lng
         lat: event.latlng.lat
         new: true
-      @newPin = new PinView
+      @newPinView = @createPinView
         model: model
         map: event.target
       .render()
