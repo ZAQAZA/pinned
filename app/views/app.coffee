@@ -18,7 +18,7 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/n
 
     live: ->
       delayed = (task) ->
-        setTimeout task, 1000
+        setTimeout task, 5000
 
       task = =>
         return @update(-> delayed task) unless Model.notifs.length
@@ -31,5 +31,5 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/n
           error: ->
             delayed task
 
-      delayed task
+      task()
 

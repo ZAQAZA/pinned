@@ -1,4 +1,5 @@
 define ['jquery', 'views/app', 'utils'], ($, AppView) ->
 
   ->
-    new AppView { el: $("body") }
+    $ ->
+      new AppView { el: $("body") }
