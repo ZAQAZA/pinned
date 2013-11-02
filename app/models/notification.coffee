@@ -13,4 +13,20 @@ define ['backbone'], (Backbone) ->
       options.url = @upvoteUrl() if options['upvote']
       Backbone.sync.call(model, method, model, options) 
 
+    isActive: ->
+      @get('is_active')
+
+    updateRange: (viewPort) ->
+      @set('from_center', @distanceFromCenter(viewPort.center))
+      @set('in_range', @isInRange(viewPort.bounds))
+
+    asPoint: ->
+      new L.LatLng @get('lat'), @get('lon')
+
+    distanceFromCenter: (center) ->
+      center.distanceTo @asPoint()
+
+    isInRange: (bounds) ->
+      bounds.contains @asPoint()
+
 

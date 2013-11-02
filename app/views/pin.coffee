@@ -23,7 +23,7 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'leaflet', 'models/mode
     pin: ->
       @popup = L.popup()
       @marker = L.marker(@model.latlon()).addTo(@map)
-      @marker.bindPopup(@popup).openPopup()
+      @marker.bindPopup(@popup)
 
     persistSave: (attr, options) ->
       Utils.persistent options || {}, (opt) =>

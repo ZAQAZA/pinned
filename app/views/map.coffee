@@ -2,12 +2,14 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
 
   Backbone.View.extend
     initialize: ->
-      @model = Model.notifs.active
+      @model = Model.activeNotifications
       @render()
 
       @listenTo @model, 'add', @addOne
       @listenTo @model, 'reset', @addAll
       @map.on 'click', @newPin, @
+      @map.on 'dragend', @updateRangeAll, @
+      @map.on 'zoomend', @updateRangeAll, @
 
     render: ->
       @map = L.map('map').setView([11, 22], 4)
@@ -36,7 +38,9 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
         model: notification
         map: @map
       .render()
+      @updateRangeOne notification
       @map.setView(c,z)
+
 
     newPin: (event) ->
       @newPinView.destroyIfNew() if @newPinView?
@@ -44,7 +48,19 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
         lon: event.latlng.lng
         lat: event.latlng.lat
         new: true
+      @updateRangeOne model
       @newPinView = @createPinView
         model: model
         map: event.target
       .render()
+      @newPinView.marker.openPopup()
+
+    updateRangeOne: (model) ->
+      viewPort =
+        center: @map.getCenter()
+        bounds: @map.getBounds()
+      model.updateRange viewPort
+
+    updateRangeAll: ->
+      Model.activeNotifications.each @updateRangeOne, @
+

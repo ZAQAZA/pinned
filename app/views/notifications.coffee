@@ -2,7 +2,7 @@ define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbo
 
   Backbone.View.extend
     initialize: ->
-      @model = Model.notifs.active
+      @model = Model.activeNotifications
 
       @listenTo(@model, 'add', @addOne)
       @listenTo(@model, 'remove reset', @addAll)
