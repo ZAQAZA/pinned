@@ -4,8 +4,9 @@ define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notifica
     model: Notification
     url: '/notifications'
 
-    initialize: (models) ->
+    initialize: (myFilter) ->
       @subsets = []
+      @myFilter = myFilter || (-> true)
       @on "remove", @removing
       @on "add", @adding
       @on "change", @changing
@@ -17,7 +18,7 @@ define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notifica
       young.get("current_server_timestamp")
 
     createLiveSubSet: (filter) ->
-      collection = new Notifications()
+      collection = new Notifications(filter)
       subset =
         filter: filter
         collection: collection
@@ -28,7 +29,7 @@ define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notifica
       _.each @subsets, (subset) -> modifier.call(context, subset, model)
 
     resettingSubset: (subset) ->
-      subset.collection.set (@filter subset.filter)
+      subset.collection.reset (@filter subset.filter)
 
     removingSubset: (subset, model) ->
       subset.collection.remove model
@@ -37,7 +38,7 @@ define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notifica
       subset.collection.add model if subset.filter(model)
 
     changingSubset: (subset, model) ->
-      subset.collection.remove model unless subset.filter(model)
+      subset.collection.add model if subset.filter(model)
 
     removing: (model) ->
       @updateAllSubsets @removingSubset, model, @
@@ -45,9 +46,10 @@ define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notifica
     adding: (model) ->
       @updateAllSubsets @addingSubset, model, @
 
-    changing: (model) ->
-      @updateAllSubsets @changingSubset, model, @
-
     resetting: (model) ->
       @updateAllSubsets @resettingSubset, model, @
+
+    changing: (model) ->
+      return @remove model unless (@myFilter model)
+      @updateAllSubsets @changingSubset, model, @
 

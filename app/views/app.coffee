@@ -5,7 +5,7 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/n
       @render()
       @live()
 
-    update: (cb) ->
+    firstFatch: (cb) ->
       Utils.persistent {success: cb, reset: true}, (opt) ->
         Model.notifs.fetch(opt)
 
@@ -18,15 +18,15 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/n
 
     live: ->
       delayed = (task) ->
-        setTimeout task, 5000
+        setTimeout task, 3000
 
       task = =>
-        return @update(-> delayed task) unless Model.notifs.length
+        return @firstFatch(-> delayed task) unless Model.notifs.length
         since = Model.notifs.youngest()
         Model.updates.fetch
           data: {since}
           success: ->
-            Model.notifs.set Model.updates.models, {remove: false, merge: true}
+            Model.notifs.add Model.updates.models, {remove: false, merge: true}
             delayed task
           error: ->
             delayed task

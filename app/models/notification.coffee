@@ -2,6 +2,7 @@ define ['backbone'], (Backbone) ->
 
   Backbone.Model.extend
     initialize: ->
+
     urlRoot: '/notifications'
 
     upvoteUrl: ->
@@ -16,9 +17,13 @@ define ['backbone'], (Backbone) ->
     isActive: ->
       @get('is_active')
 
+    inRange: ->
+      @get('in_range')
+
     updateRange: (viewPort) ->
-      @set('from_center', @distanceFromCenter(viewPort.center))
-      @set('in_range', @isInRange(viewPort.bounds))
+      @set
+        'from_center': @distanceFromCenter(viewPort.center)
+        'in_range': @isInRange(viewPort.bounds)
 
     asPoint: ->
       new L.LatLng @get('lat'), @get('lon')

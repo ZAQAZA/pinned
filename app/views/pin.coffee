@@ -10,7 +10,7 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'leaflet', 'models/mode
       @map = options.map
       @pin()
       @listenTo @model, 'change', @render
-      @listenTo @model, 'remove', @unpin
+      @listenTo @model, 'destroy', @clear
 
     template: ->
       if @model.get('new') then Handlebars.getTemplate('pin_new') else Handlebars.getTemplate('pin')
@@ -36,9 +36,9 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'leaflet', 'models/mode
 
     destroyIfNew: ->
       return unless @model.get('new')
-      @unpin()
+      @model.destroy()
 
-    unpin: ->
+    clear: ->
       @map.removeLayer @marker
       @remove()
 
