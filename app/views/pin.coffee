@@ -8,14 +8,22 @@ define ['utils', 'backbone', 'handlebars', 'leaflet'], (Utils, Backbone, Handleb
 
     initialize: (options) ->
       @map = options.map
-      @listenTo(@model, 'change', @render)
+      @pin()
+      @listenTo(@model, 'change', @refresh)
 
     template: Handlebars.getTemplate('pin')
 
     render: ->
       @$el.html @template(@model.toJSON())
-      marker = L.marker(@model.latlon()).addTo(@map)
-      marker.bindPopup(@el).openPopup();
+      @refresh()
+
+    pin: ->
+      @popup = L.popup()
+      @marker = L.marker(@model.latlon()).addTo(@map)
+      @marker.bindPopup(@popup)
+
+    refresh: ->
+      @popup.setContent(@el)
 
     persistSave: (attr, options) ->
       Utils.persistent options || {}, (opt) =>
