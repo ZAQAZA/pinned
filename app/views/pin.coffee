@@ -1,3 +1,4 @@
+# Represent the view of a notifiction as a pin on the map.
 define ['utils', 'underscore', 'backbone', 'handlebars', 'leaflet', 'models/model'], (Utils, _, Backbone, Handlebars, L, Model) ->
 
   Backbone.View.extend
@@ -34,6 +35,7 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'leaflet', 'models/mode
         success: => Model.notifs.add @model
       event.preventDefault()
 
+    # Used for deleting a pin the was created but not submitted
     destroyIfNew: ->
       return unless @model.get('new')
       @model.destroy()

@@ -1,7 +1,8 @@
 # Some utils and libraries extensions
 define ['jquery', 'underscore', 'handlebars'], ($, _, Handlebars) ->
 
-  # Used for fetching 
+  # Used for fetching a template from the server, or the precompiled templates.
+  # The method caches the templates it fetchs for future use.
   Handlebars.getTemplate = (name) ->
     if (!Handlebars.templates? || !Handlebars.templates[name]?)
       $.ajax
@@ -12,6 +13,7 @@ define ['jquery', 'underscore', 'handlebars'], ($, _, Handlebars) ->
         async : false
     Handlebars.templates[name]
 
+  # Used to parse form data into JSON - I copied this one from stackoverflow
   $.fn.serializeObject = ->
     o = {}
     a = @serializeArray()
@@ -23,6 +25,7 @@ define ['jquery', 'underscore', 'handlebars'], ($, _, Handlebars) ->
         o[@name] = @value || ''
     o
 
+  # Performs a task (fetching/saving from server) periodically untill it succeed.
   persistent = (options, f) ->
     delayed = (task) ->
       setTimeout task, 400

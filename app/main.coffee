@@ -7,6 +7,8 @@ requirejs.config
       backbone: 'vendor/backbone'
       handlebars: 'vendor/handlebars'
       leaflet: 'vendor/leaflet'
+#      On a production site the templates should be precompiled to
+#      /js/templates.js to save time..
 #      templates: 'views/templates'
 
 

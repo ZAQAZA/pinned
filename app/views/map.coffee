@@ -1,3 +1,6 @@
+# Represents the map view.
+# Draws the pins on the map, listens to event on the map and updates the notifications
+# with current viewport (center, zoom).
 define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification'], (Backbone, L, Model, PinView, Notification) ->
 
   Backbone.View.extend

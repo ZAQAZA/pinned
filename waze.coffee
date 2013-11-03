@@ -1,3 +1,5 @@
+# Simply using request module to proxy away requests to specific urls to the
+# WAZE API
 request = require 'request'
 
 wazeBaseUrl = 'http://test-notifications.staging.waze.com/'

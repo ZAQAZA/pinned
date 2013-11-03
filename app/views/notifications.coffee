@@ -1,3 +1,4 @@
+# The view representing the notifications list
 define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbone, Handlebars, Model, NotificationView) ->
 
   Backbone.View.extend
@@ -8,7 +9,7 @@ define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbo
       # If the sorting was not an issue we could just append an added model.
       # with the sorting it's more complicated... unless we implement some sort
       # of our own.
-      @listenTo(@model, 'change:from_center add remove reset', @render)
+      @listenTo @model, 'change:from_center add remove reset', @render
 
       @render()
 

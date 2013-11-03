@@ -1,3 +1,4 @@
+# Provides a view for a small statistics bar
 define ['backbone', 'handlebars', 'models/model'], (Backbone, Handlebars, Model) ->
 
   Backbone.View.extend

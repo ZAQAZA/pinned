@@ -1,3 +1,4 @@
+# Represent a notification
 define ['backbone'], (Backbone) ->
 
   Backbone.Model.extend
@@ -10,9 +11,11 @@ define ['backbone'], (Backbone) ->
 
     latlon: -> [@get('lat'), @get('lon')]
 
+    # Overriding Backbone.sync to use the right url in case we just want to
+    # up-vote
     sync: (method, model, options) ->
       options.url = @upvoteUrl() if options['upvote']
-      Backbone.sync.call(model, method, model, options) 
+      Backbone.sync.call(model, method, model, options)
 
     isActive: ->
       @get('is_active')
@@ -23,6 +26,8 @@ define ['backbone'], (Backbone) ->
     fromCenter: ->
       @get('from_center')
 
+    # Updates this model with info about the current viewport of the map.
+    # Called by the Map view when the view port changes.
     updateRange: (viewPort) ->
       @set
         'from_center': @distanceFromCenter(viewPort.center)
