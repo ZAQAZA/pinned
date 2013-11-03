@@ -4,7 +4,7 @@
   "description": "Notifications pinned on a map",
   "main": "app",
   "scripts": {
-    "start": "node lib/server.js"
+    "start": "./node_modules/coffee-script/bin/coffee server.coffee"
   },
   "repository": {
     "type": "git",
