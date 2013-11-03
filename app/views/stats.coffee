@@ -20,7 +20,8 @@ define ['backbone', 'handlebars', 'models/model'], (Backbone, Handlebars, Model)
       {active, displaying} =
         active: @active.length
         displaying: @inRange.length
-      isNormal = displaying > 0
+      isShowingAll = active is displaying and active > 0
+      isNormal = displaying > 0 and displaying < active
       isNothing = active is 0
-      isOutOfRange = !isNormal and !isNothing
-      {active, displaying, isNormal, isNothing, isOutOfRange}
+      isOutOfRange = !isNormal and !isNothing and !isShowingAll
+      {active, displaying, isNormal, isNothing, isOutOfRange, isShowingAll}
