@@ -5,9 +5,9 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'models/model', 'models
 
     events:
       "click .title": "toggle"
-      "click input[name='commit']": "submit"
-      "click input[name='upvote']": "upvote"
-      "click input[name='delete']": "clear"
+      "click button.commit": "submit"
+      "click button.upvote": "upvote"
+      "click button.delete": "clear"
 
     initialize: ->
       @listenTo(@model, 'change', @render)
