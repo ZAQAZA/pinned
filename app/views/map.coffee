@@ -6,12 +6,14 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
       @views = []
       @render()
 
-      @listenTo @model, 'add', @addOne
+      @listenTo @model, 'add', @drawOne
       @listenTo @model, 'remove', @redraw
       @listenTo @model, 'reset', @redraw
       @map.on 'click', @newPin, @
       @map.on 'dragend', @updateRangeAll, @
       @map.on 'zoomend', @updateRangeAll, @
+
+      @redraw()
 
     render: ->
       @map = L.map('map').setView([11, 22], 4)
@@ -25,7 +27,7 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
     redraw: ->
       _.each @views, (pinView) -> pinView.clear()
       @views = []
-      @model.each @addOne, @
+      @model.each @drawOne, @
 
     createPinView: (options) ->
       closeNew = =>
@@ -34,7 +36,7 @@ define ['backbone', 'leaflet', 'models/model', 'views/pin', 'models/notification
       pin.marker.on 'click', closeNew, @
       pin
 
-    addOne: (notification) ->
+    drawOne: (notification) ->
       c = @map.getCenter()
       z = @map.getZoom()
       newView = @createPinView

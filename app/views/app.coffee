@@ -2,19 +2,22 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/n
 
   Backbone.View.extend
     initialize: ->
-      @render()
-      @live()
+      @firstFetch()
 
-    firstFatch: (cb) ->
-      Utils.persistent {success: cb, reset: true}, (opt) ->
+      @listenToOnce Model.inRangeNotifications, "reset", =>
+        @render()
+        @live()
+
+    firstFetch: ->
+      Utils.persistent {reset: true}, (opt) ->
         Model.notifs.fetch(opt)
 
     template: Handlebars.getTemplate 'layout'
 
     render: ->
       @$el.html @template()
-      new NotificationsView { el: @$('#notifications') }
       new MapView { el: @$('#map') }
+      new NotificationsView { el: @$('#notifications') }
       new StatsView { el: @$('#stats') }
 
     live: ->
@@ -22,7 +25,6 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/n
         setTimeout task, 3000
 
       task = =>
-        return @firstFatch(-> delayed task) unless Model.notifs.length
         since = Model.notifs.youngest()
         Model.updates.fetch
           data: {since}
@@ -32,5 +34,5 @@ define ['utils', 'backbone', 'handlebars', 'models/model', 'views/map', 'views/n
           error: ->
             delayed task
 
-      task()
+      delayed task
 
