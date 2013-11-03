@@ -2,11 +2,11 @@ Pinned
 =========
 
 ### Live Notifications System Pinned to a Map
-***
+
 
 A small app used to create notification assosiated with a geo-location by clicking on a map.
 
-**Have a look at a live website [here].**  
+**Have a look at a live website here - [shrouded-atoll-1527.herokuapp.com]**  
 (please allow some time for the app to load at the first time, as the free heroku account has a hibernation feature to save resources)
 
 Installation
@@ -30,6 +30,9 @@ General Architecture
 - The server also provides a proxy-API for the provided WAZE API (because of the same-origin policy).
 - On the client I used [backbone.js] for seperation of models and view-controllers.
 - A collection of all available notification is maintained on the client and periodically merged with new updates from the server.
+- I used coffeescript for both on the server and the client.
+- Stylus for the css.
+- Handlebars for HTML templates.
 
 
 What I Have Used
@@ -47,9 +50,23 @@ To complete the task I used the following libraries/projects
 - [require.js] - For module loading.
 - [handlebars.js] - For HTML templating.
 - [leaflet.js] - For a map implementation. 
+- [bootstrap] - For a nice css framwork.
+
+Directory Structure
+-------------------
+- **app** - The main client backbone application. In here are the models, views, helpers and bootstraping of the app.
+    - **models**
+    - **views**
+    - *main.coffee* - 
+    - *app.coffee* - 
+    - *helpers.coffee* -
+    - *utils.coffee* -    
 
 
-  [here]: http://shrouded-atoll-1527.herokuapp.com/
+
+
+
+  [shrouded-atoll-1527.herokuapp.com]: http://shrouded-atoll-1527.herokuapp.com/
   [backbone.js]: http://documentcloud.github.io/backbone/
   [node.js]: http://nodejs.org
   [express.js]: http://expressjs.com/
