@@ -4,7 +4,7 @@ define ['utils', 'underscore', 'backbone', 'handlebars', 'leaflet', 'models/mode
     className: 'pin'
 
     events:
-      "click input[name='commit']": "submit"
+      "click button.commit": "submit"
 
     initialize: (options) ->
       @map = options.map

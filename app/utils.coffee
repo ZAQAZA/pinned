@@ -1,5 +1,7 @@
+# Some utils and libraries extensions
 define ['jquery', 'underscore', 'handlebars'], ($, _, Handlebars) ->
 
+  # Used for fetching 
   Handlebars.getTemplate = (name) ->
     if (!Handlebars.templates? || !Handlebars.templates[name]?)
       $.ajax
