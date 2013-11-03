@@ -2,9 +2,10 @@ express = require 'express'
 wazeProxy = require './waze'
 configure = require './configure'
 
+port = process.env.PORT || 8080
 app = express()
 configure app
 wazeProxy app
-app.listen 8080
+app.listen port
 
-console.log 'listening 8080'
+console.log "Server in listening port #{port}"
