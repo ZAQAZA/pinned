@@ -20,6 +20,9 @@ define ['backbone'], (Backbone) ->
     inRange: ->
       @get('in_range')
 
+    fromCenter: ->
+      @get('from_center')
+
     updateRange: (viewPort) ->
       @set
         'from_center': @distanceFromCenter(viewPort.center)

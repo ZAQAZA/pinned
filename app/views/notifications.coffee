@@ -4,9 +4,8 @@ define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbo
     initialize: ->
       @model = Model.inRangeNotifications
 
-      @listenTo(@model, 'add', @addOne)
-      @listenTo(@model, 'remove', @addAll)
-      @listenTo(@model, 'reset', @addAll)
+      # We need to rerender everything only because of the sorting
+      @listenTo(@model, 'change:from_center add remove reset', @addAll)
 
       @render()
 
@@ -17,6 +16,7 @@ define ['backbone', 'handlebars', 'models/model', 'views/notification'], (Backbo
 
     addAll: ->
       @render()
+      @model.sort()
       @model.each @addOne, @
 
     addOne: (notification) ->

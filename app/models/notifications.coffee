@@ -1,4 +1,4 @@
-define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notification) ->
+define ['underscore', 'backbone', 'models/notification', 'models/model'], (_, Backbone, Notification, Model) ->
 
   Notifications = Backbone.Collection.extend
     model: Notification
@@ -53,3 +53,5 @@ define ['underscore', 'backbone', 'models/notification'], (_, Backbone, Notifica
       return @remove model unless (@myFilter model)
       @updateAllSubsets @changingSubset, model, @
 
+    comparator: (notification) ->
+      notification.get('from_center')
