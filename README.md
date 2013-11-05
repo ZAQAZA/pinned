@@ -4,7 +4,7 @@ Pinned
 ### Live Notifications System Pinned to a Map
 
 
-A small app used to create notification assosiated with a geo-location by clicking on a map.
+A small app used to create notifications assosiated with a geo-location by clicking on a map.
 
 **Have a look at a live website here - [shrouded-atoll-1527.herokuapp.com]**  
 (please allow some time for the app to load at the first time, as the free heroku account has a hibernation feature to save resources)
